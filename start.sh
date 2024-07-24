@@ -28,6 +28,6 @@ fi
 
 sleep 2
 
-nohup HOST=0.0.0.0 PORT=$port npm run dev > nohub.log 2>&1 &
+HOST="0.0.0.0" PORT="$port" nohup npm start > nohub.log 2>&1 &
 
 echo "start success!!"
