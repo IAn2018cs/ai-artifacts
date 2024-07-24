@@ -13,7 +13,7 @@ import { SandboxTemplate } from '@/lib/types'
 const userID = 'dummy-user-id'
 
 export default function Home() {
-  const [selectedTemplate, setSelectedTemplate] = useState(SandboxTemplate.CodeInterpreterMultilang)
+  const [selectedTemplate, setSelectedTemplate] = useState(SandboxTemplate.NextJS)
   const { messages, input, handleInputChange, handleSubmit, data } = useChat({
     api: '/api/chat',
     body: {
