@@ -7,7 +7,7 @@ import {
   StreamTextResult,
   tool,
 } from 'ai'
-import { anthropic } from '@ai-sdk/anthropic'
+import { createAnthropic } from '@ai-sdk/anthropic';
 
 import {
   runPython,
@@ -16,6 +16,12 @@ import {
 import { SandboxTemplate } from '@/lib/types'
 import { prompt as dataAnalystPrompt } from '@/lib/python-analyst-prompt'
 import { prompt as nextjsPrompt } from '@/lib/nextjs-prompt'
+
+
+const anthropic = createAnthropic({
+  // custom settings, e.g.
+  baseURL: process.env.ANTHROPIC_BASE_URL
+})
 
 export interface ServerMessage {
   role: 'user' | 'assistant' | 'function';

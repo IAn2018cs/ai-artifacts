@@ -31,5 +31,5 @@ ANTHROPIC_API_KEY="your-anthropic-api-key"
 
 ### 3. Run
 ```sh
-npm run dev
+HOST=0.0.0.0 PORT=3000 npm run dev
 ```
