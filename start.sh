@@ -14,16 +14,25 @@ fi
 
 echo "Looking for processes using TCP port $port..."
 
-# 使用lsof命令获取特定TCP端口的进程PID
-pid=$(lsof -t -i tcp:$port)
+# 使用ss命令获取特定TCP端口的进程信息
+process_info=$(ss -tlnp | grep :$port)
 
-# 检查PID是否为空，如果不为空，则输出PID
-if [ ! -z "$pid" ]; then
-  echo "Found process on port $port with PID: $pid"
-  # 如果需要杀死该进程，取消下一行的注释
-  kill -9 $pid
+# 检查是否找到了进程
+if [ ! -z "$process_info" ]; then
+    # 提取PID
+    pid=$(echo "$process_info" | sed -n 's/.*pid=\([0-9]*\).*/\1/p')
+    # 提取进程名
+    process_name=$(echo "$process_info" | sed -n 's/.*"(\([^"]*\).*/\1/p')
+    
+    echo "在端口 $port 上找到进程"
+    echo "进程名: $process_name"
+    echo "PID: $pid"
+    
+    # 如果需要杀死该进程，取消下面两行的注释
+    echo "正在终止进程..."
+    kill -9 $pid
 else
-  echo "No process found on port $port."
+    echo "在端口 $port 上没有找到进程。"
 fi
 
 sleep 2
